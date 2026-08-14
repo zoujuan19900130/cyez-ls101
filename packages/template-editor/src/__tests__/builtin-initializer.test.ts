@@ -23,7 +23,8 @@ describe('内置函数库启动初始化', () => {
     expect(await repository.listBuiltinFunctionLibraryIds()).toEqual([
       'builtin:basic',
       'builtin:examples',
-      'builtin:shanghai-gaokao-basic'
+      'builtin:shanghai-gaokao-basic',
+      'builtin:shanghai-zhongkao-basic'
     ])
     expect(await repository.getActiveBuiltinFunctionLibrary('builtin:basic')).toMatchObject({
       libraryId: 'builtin:basic',
@@ -123,6 +124,55 @@ describe('内置函数库启动初始化', () => {
           {
             functionId: 'builtin:shanghai-gaokao-passage-response',
             content: { name: '听短文回答' }
+          }
+        ]
+      }
+    })
+    expect(
+      await repository.getActiveBuiltinFunctionLibrary('builtin:shanghai-zhongkao-basic')
+    ).toMatchObject({
+      libraryId: 'builtin:shanghai-zhongkao-basic',
+      version: 1,
+      content: {
+        name: '初中基础题型',
+        functions: [
+          {
+            functionId: 'builtin:shanghai-zhongkao-directions',
+            content: { name: 'Directions页面' }
+          },
+          {
+            functionId: 'builtin:shanghai-zhongkao-reading-phrase',
+            content: {
+              name: '朗读词组',
+              inputs: [
+                { name: 'phrase_display', type: 'string' },
+                { name: 'phrase', type: 'string' },
+                { name: 'idx', type: 'string' }
+              ],
+              outputs: [{ name: 'ans', type: 'audio' }]
+            }
+          },
+          {
+            functionId: 'builtin:shanghai-zhongkao-reading-sentence',
+            content: { name: '朗读句子' }
+          },
+          {
+            functionId: 'builtin:shanghai-zhongkao-quick-response',
+            content: { name: '交际应答' }
+          },
+          {
+            functionId: 'builtin:shanghai-zhongkao-retell',
+            content: {
+              name: '复述',
+              inputs: [
+                { name: 'dialogue', type: 'string' },
+                { name: 'picture', type: 'file' }
+              ]
+            }
+          },
+          {
+            functionId: 'builtin:shanghai-zhongkao-free-talk',
+            content: { name: '话题表达' }
           }
         ]
       }

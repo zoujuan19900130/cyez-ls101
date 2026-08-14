@@ -1541,6 +1541,820 @@
           }
         ]
       }
+    },
+    {
+      "libraryId": "builtin:shanghai-zhongkao-basic",
+      "version": 1,
+      "contentHash": "sha256:88026c3bed362ff14875223a67fd076dfaf79f02abcc341f86e38d2da4420143",
+      "content": {
+        "name": "初中基础题型",
+        "functions": [
+          {
+            "functionId": "builtin:shanghai-zhongkao-directions",
+            "content": {
+              "name": "Directions页面",
+              "inputs": [
+                {
+                  "name": "title",
+                  "type": "string"
+                },
+                {
+                  "name": "direction",
+                  "type": "string"
+                }
+              ],
+              "body": {
+                "id": "root",
+                "name": "根框架",
+                "type": "frame",
+                "children": [
+                  {
+                    "id": "page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "title",
+                          "type": "text",
+                          "x": 10,
+                          "y": 10,
+                          "width": 80,
+                          "fontSize": 50,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "title"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center",
+                          "bold": true
+                        },
+                        {
+                          "id": "direction",
+                          "type": "text",
+                          "x": 14,
+                          "y": 28,
+                          "width": 72,
+                          "fontSize": 32,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "direction"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "play",
+                        "text": {
+                          "type": "string",
+                          "parts": [
+                            {
+                              "type": "variable",
+                              "ref": {
+                                "scope": "local",
+                                "name": "title"
+                              }
+                            },
+                            {
+                              "type": "literal",
+                              "value": ".  "
+                            },
+                            {
+                              "type": "variable",
+                              "ref": {
+                                "scope": "local",
+                                "name": "direction"
+                              }
+                            },
+                            {
+                              "type": "literal",
+                              "value": "."
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "name": "页面"
+                  }
+                ]
+              },
+              "outputs": [],
+              "schemaUses": []
+            }
+          },
+          {
+            "functionId": "builtin:shanghai-zhongkao-reading-phrase",
+            "content": {
+              "name": "朗读词组",
+              "inputs": [
+                {
+                  "name": "phrase_display",
+                  "type": "string"
+                },
+                {
+                  "name": "phrase",
+                  "type": "string"
+                },
+                {
+                  "name": "idx",
+                  "type": "string"
+                }
+              ],
+              "body": {
+                "id": "root",
+                "name": "根框架",
+                "type": "frame",
+                "children": [
+                  {
+                    "id": "prepare-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "phrase-display",
+                          "type": "text",
+                          "x": 11,
+                          "y": 31,
+                          "width": 78,
+                          "fontSize": 40,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "idx"
+                                }
+                              },
+                              {
+                                "type": "literal",
+                                "value": ". "
+                              },
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "phrase_display"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center"
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "countdown",
+                        "seconds": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 10
+                        }
+                      }
+                    ],
+                    "name": "页面"
+                  },
+                  {
+                    "id": "record-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "phrase",
+                          "type": "text",
+                          "x": 11,
+                          "y": 31,
+                          "width": 78,
+                          "fontSize": 40,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "idx"
+                                }
+                              },
+                              {
+                                "type": "literal",
+                                "value": ". "
+                              },
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "phrase"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center"
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "record",
+                        "duration": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 15
+                        },
+                        "outputName": "output"
+                      }
+                    ],
+                    "name": "页面"
+                  }
+                ]
+              },
+              "outputs": [
+                {
+                  "name": "ans",
+                  "type": "audio",
+                  "expression": {
+                    "type": "audio",
+                    "source": "record-output",
+                    "name": "output"
+                  }
+                }
+              ],
+              "schemaUses": []
+            }
+          },
+          {
+            "functionId": "builtin:shanghai-zhongkao-reading-sentence",
+            "content": {
+              "name": "朗读句子",
+              "inputs": [
+                {
+                  "name": "sentence",
+                  "type": "string"
+                },
+                {
+                  "name": "idx",
+                  "type": "string"
+                }
+              ],
+              "body": {
+                "id": "root",
+                "name": "根框架",
+                "type": "frame",
+                "children": [
+                  {
+                    "id": "page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "sentence",
+                          "type": "text",
+                          "x": 11,
+                          "y": 31,
+                          "width": 78,
+                          "fontSize": 36,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "idx"
+                                }
+                              },
+                              {
+                                "type": "literal",
+                                "value": ". "
+                              },
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "sentence"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center"
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "countdown",
+                        "seconds": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 10
+                        }
+                      },
+                      {
+                        "type": "record",
+                        "duration": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 10
+                        },
+                        "outputName": "output"
+                      }
+                    ],
+                    "name": "页面"
+                  }
+                ]
+              },
+              "outputs": [
+                {
+                  "name": "ans",
+                  "type": "audio",
+                  "expression": {
+                    "type": "audio",
+                    "source": "record-output",
+                    "name": "output"
+                  }
+                }
+              ],
+              "schemaUses": []
+            }
+          },
+          {
+            "functionId": "builtin:shanghai-zhongkao-quick-response",
+            "content": {
+              "name": "交际应答",
+              "inputs": [
+                {
+                  "name": "question",
+                  "type": "string"
+                },
+                {
+                  "name": "idx",
+                  "type": "string"
+                }
+              ],
+              "body": {
+                "id": "root",
+                "name": "根框架",
+                "type": "frame",
+                "children": [
+                  {
+                    "id": "listen-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "question",
+                          "type": "text",
+                          "x": 10,
+                          "y": 34,
+                          "width": 80,
+                          "fontSize": 42,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "idx"
+                                }
+                              },
+                              {
+                                "type": "literal",
+                                "value": ". "
+                              },
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "question"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center"
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "play",
+                        "text": {
+                          "type": "string",
+                          "parts": [
+                            {
+                              "type": "variable",
+                              "ref": {
+                                "scope": "local",
+                                "name": "idx"
+                              }
+                            },
+                            {
+                              "type": "literal",
+                              "value": ". "
+                            },
+                            {
+                              "type": "variable",
+                              "ref": {
+                                "scope": "local",
+                                "name": "question"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "name": "页面"
+                  },
+                  {
+                    "id": "answer-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "question",
+                          "type": "text",
+                          "x": 10,
+                          "y": 34,
+                          "width": 80,
+                          "fontSize": 42,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "idx"
+                                }
+                              },
+                              {
+                                "type": "literal",
+                                "value": ". "
+                              },
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "question"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center"
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "record",
+                        "duration": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 10
+                        },
+                        "outputName": "output"
+                      }
+                    ],
+                    "name": "页面"
+                  }
+                ]
+              },
+              "outputs": [
+                {
+                  "name": "ans",
+                  "type": "audio",
+                  "expression": {
+                    "type": "audio",
+                    "source": "record-output",
+                    "name": "output"
+                  }
+                }
+              ],
+              "schemaUses": []
+            }
+          },
+          {
+            "functionId": "builtin:shanghai-zhongkao-retell",
+            "content": {
+              "name": "复述",
+              "inputs": [
+                {
+                  "name": "dialogue",
+                  "type": "string"
+                },
+                {
+                  "name": "picture",
+                  "type": "file"
+                }
+              ],
+              "body": {
+                "id": "root",
+                "name": "根框架",
+                "type": "frame",
+                "children": [
+                  {
+                    "id": "first-listen-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "picture",
+                          "type": "image",
+                          "x": 10,
+                          "y": 12,
+                          "width": 80,
+                          "height": 76,
+                          "src": {
+                            "type": "file",
+                            "source": "variable",
+                            "ref": {
+                              "scope": "local",
+                              "name": "picture"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "play",
+                        "text": {
+                          "type": "string",
+                          "parts": [
+                            {
+                              "type": "variable",
+                              "ref": {
+                                "scope": "local",
+                                "name": "dialogue"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "countdown",
+                        "seconds": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 1
+                        }
+                      }
+                    ],
+                    "name": "页面"
+                  },
+                  {
+                    "id": "second-listen-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "picture",
+                          "type": "image",
+                          "x": 10,
+                          "y": 12,
+                          "width": 80,
+                          "height": 76,
+                          "src": {
+                            "type": "file",
+                            "source": "variable",
+                            "ref": {
+                              "scope": "local",
+                              "name": "picture"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "play",
+                        "text": {
+                          "type": "string",
+                          "parts": [
+                            {
+                              "type": "variable",
+                              "ref": {
+                                "scope": "local",
+                                "name": "dialogue"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "name": "页面"
+                  },
+                  {
+                    "id": "prepare-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "picture",
+                          "type": "image",
+                          "x": 10,
+                          "y": 12,
+                          "width": 80,
+                          "height": 76,
+                          "src": {
+                            "type": "file",
+                            "source": "variable",
+                            "ref": {
+                              "scope": "local",
+                              "name": "picture"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "countdown",
+                        "seconds": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 60
+                        }
+                      }
+                    ],
+                    "name": "页面"
+                  },
+                  {
+                    "id": "record-page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "picture",
+                          "type": "image",
+                          "x": 10,
+                          "y": 12,
+                          "width": 80,
+                          "height": 76,
+                          "src": {
+                            "type": "file",
+                            "source": "variable",
+                            "ref": {
+                              "scope": "local",
+                              "name": "picture"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "record",
+                        "duration": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 60
+                        },
+                        "outputName": "output"
+                      }
+                    ],
+                    "name": "页面"
+                  }
+                ]
+              },
+              "outputs": [
+                {
+                  "name": "ans",
+                  "type": "audio",
+                  "expression": {
+                    "type": "audio",
+                    "source": "record-output",
+                    "name": "output"
+                  }
+                }
+              ],
+              "schemaUses": []
+            }
+          },
+          {
+            "functionId": "builtin:shanghai-zhongkao-free-talk",
+            "content": {
+              "name": "话题表达",
+              "inputs": [
+                {
+                  "name": "topic",
+                  "type": "string"
+                },
+                {
+                  "name": "picture",
+                  "type": "file"
+                }
+              ],
+              "body": {
+                "id": "root",
+                "name": "根框架",
+                "type": "frame",
+                "children": [
+                  {
+                    "id": "page",
+                    "type": "page",
+                    "content": {
+                      "blocks": [
+                        {
+                          "id": "free-talk-topic",
+                          "type": "text",
+                          "x": 10,
+                          "y": 4,
+                          "width": 80,
+                          "fontSize": 36,
+                          "text": {
+                            "type": "string",
+                            "parts": [
+                              {
+                                "type": "literal",
+                                "value": "Topic: "
+                              },
+                              {
+                                "type": "variable",
+                                "ref": {
+                                  "scope": "local",
+                                  "name": "topic"
+                                }
+                              }
+                            ]
+                          },
+                          "align": "center",
+                          "bold": true
+                        },
+                        {
+                          "id": "free-talk-picture",
+                          "type": "image",
+                          "x": 12,
+                          "y": 16,
+                          "width": 76,
+                          "height": 76,
+                          "src": {
+                            "type": "file",
+                            "source": "variable",
+                            "ref": {
+                              "scope": "local",
+                              "name": "picture"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "timeline": [
+                      {
+                        "type": "countdown",
+                        "seconds": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 75
+                        }
+                      },
+                      {
+                        "type": "record",
+                        "duration": {
+                          "type": "number",
+                          "source": "literal",
+                          "value": 60
+                        },
+                        "outputName": "output"
+                      }
+                    ],
+                    "name": "页面"
+                  }
+                ]
+              },
+              "outputs": [
+                {
+                  "name": "ans",
+                  "type": "audio",
+                  "expression": {
+                    "type": "audio",
+                    "source": "record-output",
+                    "name": "output"
+                  }
+                }
+              ],
+              "schemaUses": []
+            }
+          }
+        ]
+      }
     }
   ]
 }
